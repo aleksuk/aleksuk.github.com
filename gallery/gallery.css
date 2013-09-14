@@ -46,7 +46,6 @@ table {
 	margin: 0px;
 	padding: 10px;
 	width: 650px;
-	/*height: 600px;*/
 	background: #EEE9E9;
 	border: 5px double #8B8989;
 	border-radius: 20px;
@@ -74,17 +73,12 @@ table {
 
 .small-picture {
 	width: 640px;
-	/*overflow: hidden;*/
 	margin-left: 6px;
-	/*margin-top: 10px;*/
 }
 
 .previews {
 	float:left;
-	/*margin-left: -160px;*/
-   /* margin: 0 0 10px 0;*/
     text-align: center;
-    /*width: 9999px;*/
 	text-align: center;
     list-style: none;
 }
@@ -94,9 +88,6 @@ table {
 	margin-right: 10px;
 	width: 150px;
 	float: left;
-	/*display: inline;*/
-  /*  float: left;*/
-    /*margin-right: 10px;*/
 }
 
 .previews img {
