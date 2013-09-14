@@ -159,7 +159,7 @@ var Gallery = (function () {
 			addClass(this.previews.children[0], 'current');
 			this.large.src = this.largeImgPath + this.largePicNames[0];
 		}
-		this.stopAutorotating();
+		this.restartAutorotating();
 	}
 
 	Gallery.prototype.prevPicture = function () {
@@ -179,7 +179,7 @@ var Gallery = (function () {
 			addClass(this.previews.children[prevCurrentImg], 'current');
 			this.large.src = this.largeImgPath + this.largePicNames[prevCurrentImg];
 		}
-		this.stopAutorotating();
+		this.restartAutorotating();
 	}
 
 	Gallery.prototype.selectPicture = function (target) {
@@ -193,7 +193,7 @@ var Gallery = (function () {
 				this.large.src = this.largeImgPath + this.largePicNames[i];
 			}
 		}
-		this.stopAutorotating();
+		this.restartAutorotating();
 	}
 
 	Gallery.prototype.startAutorotating = function () {
@@ -203,19 +203,21 @@ var Gallery = (function () {
 		}, 5000);
 	}
 
-	Gallery.prototype.stopAutorotating = function () {
+	Gallery.prototype.restartAutorotating = function () {
 		clearInterval(this.rotateTimer);
 		this.startAutorotating();
 	}
-	
+
 	Gallery.prototype.scrolling = function(target) {
 		var LEFT_ARROW = 37,
 			RIGHT_ARROW = 39;
 		if (activeGallery === this) {
 			if (target.keyCode === LEFT_ARROW) {
 				this.prevPicture();
+				this.restartAutorotating();
 			} else if (target.keyCode === RIGHT_ARROW) {
 				this.nextPicture();
+				this.restartAutorotating();
 			}
 		}
 	}
