@@ -1,5 +1,16 @@
 "use strict";
+if (!Array.prototype.filter) {
+	Array.prototype.filter = function (filterFunction) {
+		var res = [];
 
+		for (var i = 0; i < this.length; i += 1) {
+			if (filterFunction(this[i])) {
+				res.push(this[i]);
+			}
+		}
+		return res;
+	}
+}
 function l(value) {
 	return console.log(value);
 }
