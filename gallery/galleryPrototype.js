@@ -120,7 +120,7 @@ var Gallery = (function () {
 					},
 					select: function (event) {
 						event = event || window.event;
-						var target = event.target || event.srcElemen;
+						var target = event.target || event.srcElement;
 						
 						preventDef(event);	
 						if (target.nodeName !== 'UL') {
