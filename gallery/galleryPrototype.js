@@ -108,15 +108,16 @@ var Gallery = (function () {
 			activeGallery = this;
 		}
 
-		var 	next = function (event) {
+		var handler = {
+			next : function (event) {
 				preventDef(event);
 				self.nextPicture();
 			},
-			prev = function (event) {
+			prev : function (event) {
 				preventDef(event);
 				self.prevPicture();
 			},
-			select = function (event) {
+			select : function (event) {
 				event = event || window.event;
 				var target = event.target || event.srcElement;
 				
@@ -128,23 +129,23 @@ var Gallery = (function () {
 				}
 				self.selectPicture(target); 
 			},
-			start = function () {
+			start : function () {
 				self.startAutorotating();
 			},
-			press = function (event) {
+			press : function (event) {
 				event = event || window.event;
-	
+
 				self.scrolling(event);
 			},
-			setActiveGallery = function(event) {
+			setActiveGallery : function(event) {
 				activeGallery = self;
 			}
-		
-		addEvent(navigation[1], 'click', next);
-		addEvent(navigation[0], 'click', prev);
-		addEvent(this.previews, 'click', select);
-		addEvent(document.documentElement, 'keydown', press);
-		addEvent(this.galleryNode, 'mouseover', setActiveGallery);
+		}
+		addEvent(navigation[1], 'click', handler.next);
+		addEvent(navigation[0], 'click', handler.prev);
+		addEvent(this.previews, 'click', handler.select);
+		addEvent(document.documentElement, 'keydown', handler.press);
+		addEvent(this.galleryNode, 'mouseover', handler.setActiveGallery);
 
 	this.startAutorotating();	
 	}
@@ -238,3 +239,4 @@ function windowOnLoad() {
 		gallery2 = new Gallery(document.getElementById('second'), bigPictures);
 }
 addEvent(window, 'load', windowOnLoad);
+
