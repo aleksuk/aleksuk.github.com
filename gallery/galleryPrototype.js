@@ -108,7 +108,7 @@ var Gallery = (function () {
 			activeGallery = this;
 		}
 
-		var next = function (event) {
+		var 	next = function (event) {
 				preventDef(event);
 				self.nextPicture();
 			},
@@ -133,7 +133,7 @@ var Gallery = (function () {
 			},
 			press = function (event) {
 				event = event || window.event;
-
+	
 				self.scrolling(event);
 			},
 			setActiveGallery = function(event) {
