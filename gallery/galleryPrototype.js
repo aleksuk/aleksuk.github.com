@@ -108,47 +108,43 @@ var Gallery = (function () {
 			activeGallery = this;
 		}
 
-		var handler = (function () {
-				return {
-					next : function (event) {
-						preventDef(event);
-						self.nextPicture();
-					},
-					prev : function (event) {
-						preventDef(event);
-						self.prevPicture();
-					},
-					select: function (event) {
-						event = event || window.event;
-						var target = event.target || event.srcElement;
-						
-						preventDef(event);	
-						if (target.nodeName !== 'UL') {
-							target = closest(target, function  (node) {
-								return node.nodeName === 'LI';
-							});
-						}
-						self.selectPicture(target); 
-					},
-					start : function () {
-						self.startAutorotating();
-					},
-					press : function (event) {
-						event = event || window.event;
-
-						self.scrolling(event);
-					},
-					setActiveGallery : function(event) {
-						activeGallery = self;
-					}
+		var next = function (event) {
+				preventDef(event);
+				self.nextPicture();
+			},
+			prev = function (event) {
+				preventDef(event);
+				self.prevPicture();
+			},
+			select = function (event) {
+				event = event || window.event;
+				var target = event.target || event.srcElement;
+				
+				preventDef(event);	
+				if (target.nodeName !== 'UL') {
+					target = closest(target, function  (node) {
+						return node.nodeName === 'LI';
+					});
 				}
-			})();
+				self.selectPicture(target); 
+			},
+			start = function () {
+				self.startAutorotating();
+			},
+			press = function (event) {
+				event = event || window.event;
 
-		addEvent(navigation[1], 'click', handler.next);
-		addEvent(navigation[0], 'click', handler.prev);
-		addEvent(this.previews, 'click', handler.select);
-		addEvent(document.documentElement, 'keydown', handler.press);
-		addEvent(this.galleryNode, 'mouseover', handler.setActiveGallery);
+				self.scrolling(event);
+			},
+			setActiveGallery = function(event) {
+				activeGallery = self;
+			}
+		
+		addEvent(navigation[1], 'click', next);
+		addEvent(navigation[0], 'click', prev);
+		addEvent(this.previews, 'click', select);
+		addEvent(document.documentElement, 'keydown', press);
+		addEvent(this.galleryNode, 'mouseover', setActiveGallery);
 
 	this.startAutorotating();	
 	}
