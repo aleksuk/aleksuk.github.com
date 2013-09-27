@@ -8,13 +8,13 @@ var result = (function () {
 			priceUAHString,
 			priceUSDString,
 			linkStr = linkNode.innerHTML.trim();
-	    if ( node.querySelector('.g-price-uah') && node.querySelector('.g-price-usd') ) {
-	        priceUAHString = node.querySelector('.g-price-uah').innerHTML;
-	        priceUSDString = node.querySelector('.g-price-usd').innerHTML;
-	    } else {
-	        priceUAHString = '';
-	        priceUSDString = '';
-	    }
+		if ( node.querySelector('.g-price-uah') && node.querySelector('.g-price-usd') ) {
+			priceUAHString = node.querySelector('.g-price-uah').innerHTML;
+			priceUSDString = node.querySelector('.g-price-usd').innerHTML;
+		} else {
+			priceUAHString = '';
+			priceUSDString = '';
+		}
 
 		var reg = {
 			findCapacity : /[\d]*(?=\s?GB)/i,
@@ -23,7 +23,7 @@ var result = (function () {
 			findPriceUAH : /[\d]*/,
 			findPriceUSD : /[\d]*$/
 			},
-	        info = {};
+			info = {};
 
 		info.descriptionOfGoods = linkStr.replace(reg.findName, '').trim();
 		info.url = linkNode.href;
@@ -55,7 +55,7 @@ var result = (function () {
 	function addGoodsInfo(htmlText) {
 		var reg = /<body>([\s\S]*)<\/body>/,
 			tempDOM = document.createElement('html');		
-        tempDOM.innerHTML = htmlText.match(reg)[0].trim();
+		tempDOM.innerHTML = htmlText.match(reg)[0].trim();
 		var products = tempDOM.querySelectorAll('div.gtile-i-wrap');
 		for (var i = 0; i < products.length; i += 1) {
 
