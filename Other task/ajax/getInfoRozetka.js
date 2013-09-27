@@ -1,6 +1,6 @@
 "use strict";
 window.onerror = null;
-var result = (function () {
+(function (callback) {
 	var result = [];
 
 	function getInfo(node) {
@@ -48,7 +48,6 @@ var result = (function () {
 		for(var i = 1; i <= numbeOfPages; i += 1) {
 			url.push(href + 'page=' + i + '/');
 		}
-
 		return url;
 	}
 
@@ -56,15 +55,17 @@ var result = (function () {
 		var reg = /<body>([\s\S]*)<\/body>/,
 			tempDOM = document.createElement('html');		
 		tempDOM.innerHTML = htmlText.match(reg)[0].trim();
+
 		var products = tempDOM.querySelectorAll('div.gtile-i-wrap');
+
 		for (var i = 0; i < products.length; i += 1) {
-
 			result.push( getInfo(products[i]) );
-
 		};
 	}
 
-	var pages = getArrLinks();
+	var pages = getArrLinks(),
+		counter = 0;
+
 	pages.forEach(function (page) {
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', page, true);
@@ -73,16 +74,18 @@ var result = (function () {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					addGoodsInfo(xhr.responseText);
-			
+					counter += 1;
+
+					if (counter === pages.length) {
+						callback(result);
+					}
 				};
 			};
 		};
 		xhr.send(null);
 	});
+})(getResult);
 
-	return result;
-})();
-// Проверка
-// setTimeout(function () {
-// console.dir(result);
-// },7000)
+function getResult(res) {
+	console.dir(res);
+} 
