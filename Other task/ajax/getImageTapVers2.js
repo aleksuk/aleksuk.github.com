@@ -83,7 +83,7 @@ window.onerror = null;
 
 	ImageTape.prototype.makeAnInquiry = function (url) {
 		var self = this;
-		var xhr = new getXmlHttp();
+		var xhr = getXmlHttp();
 		xhr.open('GET', url, true);
 
 		xhr.onreadystatechange = function () {
