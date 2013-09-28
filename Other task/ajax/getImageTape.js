@@ -68,7 +68,7 @@ window.onerror = null;
 	ImageTape.prototype.setUrl = function() {
 		return '/comics/' + pageNumber;
 	}
-	
+
 	ImageTape.prototype.addImgBlock =  function (htmlText) {
 		var reg = /<body>([\s\S]*)<\/body>/,
 			tempDOM = document.createElement('html');
