@@ -81,7 +81,7 @@ function addNumberOfComments() {
 function addPosts(data) {
 	var receivedContent = ( $(data).find('.post') );
 
-	receivedContent.each(getNumberOfComments);
+	receivedContent.each(addNumberOfComments);
 	receivedContent.each(removeInfoAllInfopanel);
 	$('.posts.shortcuts_items').append(receivedContent);
 }
@@ -110,6 +110,6 @@ function getAllPages(numberOfPages) {
 	}
 }
 
-$('.post').each(getNumberOfComments);
+$('.post').each(addNumberOfComments);
 $('.post').each(removeInfoAllInfopanel);
 getAllPages( getNumberOfPages() );
