@@ -1,0 +1,251 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+#css-zen-garden {
+	background: #E8E0D5 url(img/flora.gif) repeat-y center;
+	font-family: trebuchet ms, arial, helvetica, sans-serif;
+}
+
+.page-wrapper {
+	position:  relative;
+	margin: 0 auto;
+	width: 505px;
+	border-top: 10px solid #B9AA94;
+	border-bottom: 10px solid #B9AA94;
+	padding-bottom: 10px;
+}
+
+#zen-intro {
+	background: url(img/zensky.jpg) no-repeat center;
+	position: relative; 
+	height: 700px;
+	top: -180px;
+}
+header {
+	background: url(img/cssdemo.gif) no-repeat bottom;
+	height: 67px;
+	padding-top: 520px;
+}
+
+header h1, header h2 {
+	display: none;
+}
+
+#zen-summary {
+	margin-left: 200px; 
+	width: 306px;
+}
+
+#zen-summary p {
+	color: #9F927F;
+	font-size: 9px;
+	margin: 15px 5px 15px 15px;
+}
+
+#zen-summary p:first-child {
+	display: none;
+}
+
+#zen-summary a:link, #zen-summary a:visited {
+	text-decoration: none;
+	color: #716B8B;
+	background: #EBEEF2;
+}
+
+#zen-summary a:hover {
+	color: #384A5F;
+	background: #F1EFE9;
+	text-decoration: none;
+}
+
+#zen-preamble {
+	margin-left: 200px; 
+	padding-top: 40px;
+	width: 306px;
+	position: relative;
+	color: #9F927F;
+	background: url(img/road.gif) no-repeat;
+}
+
+#zen-preamble h3 {
+	display: none;
+}
+
+#zen-preamble p {
+	margin: 0 10px 15px 15px;
+	font-size: 11px;
+	line-height: 15px;
+}
+
+#zen-supporting {
+	margin-left: 200px; 
+	color: #9F927F;
+
+}
+
+#zen-supporting div {
+	width: 306px;
+	padding-top: 50px;
+	margin-left: 10px; 
+
+}
+
+#zen-supporting h3 {
+	display: none;
+}
+
+#zen-supporting p a:hover {
+	color: #384A5F;
+	background: #F1EFE9;
+	text-decoration: none;
+}
+
+#zen-supporting footer a:hover {
+	color: #384A5F;
+	background: #F1EFE9;
+	text-decoration: none;
+}
+
+#zen-supporting a:link, #zen-supporting a:visited {
+	text-decoration: none;
+	color: #716B8B;
+	background: #EBEEF2;
+}
+
+#zen-supporting p {
+	margin: 0px 20px 15px 5px;
+	font-size: 11px;
+	line-height: 15px;
+}
+
+#zen-explanation {
+	background: url(img/allabout.gif) no-repeat;
+	position: relative;
+
+}
+
+#zen-participation {
+	background: url(img/participation.gif) no-repeat;
+}
+
+#zen-benefits {
+	background: url(img/benefits.gif) no-repeat;
+}
+
+#zen-requirements {
+	background: url(img/requirements.gif) no-repeat;
+	padding-bottom: 10px;
+}
+
+footer {
+	margin-left: 10px;
+	font-size: 9px;
+	word-spacing: 20px;
+}
+
+.sidebar {
+	position: absolute;
+	top: 407px;
+	width: 188px;
+	float: left;
+
+}
+
+.sidebar ul li a:first-child {
+	color: blue;
+	display: block;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	font-size: 11px;
+	color: #384A5F;
+}
+
+.sidebar div h3 {
+	display: none;
+}
+
+.sidebar ul li a {
+	text-decoration: none;
+	color: #929B70;
+	display: inline-block;
+}
+
+.sidebar ul li a:visited, #design-selection ul li a:link, {
+	color: #929B70;
+}
+
+.sidebar ul li a:hover, #design-selection ul li a:first-child:hover {
+	color: #746E50;
+}
+
+#design-selection {
+	background: url(img/selectdesign.gif) no-repeat;
+	padding-top: 40px;
+}
+
+#design-selection ul li{
+	background: url(img/liBG.gif) repeat-x;
+	height: 48px;
+	padding-left: 10px;
+	font-size: 9px;
+	color: #9F927F;
+}
+
+#design-archives {
+	background: url(img/archives.gif) no-repeat;
+	padding-top: 40px;
+}
+
+#design-archives ul li, #zen-resources ul li {
+	background: url(img/liBG.gif) repeat-x;
+	height: 28px;
+	padding-left: 10px;
+	font-size: 9px;
+	color: #9F927F;
+}
+
+#zen-resources {
+	background: url(img/resources.gif) no-repeat;
+	padding-top: 40px;
+}
