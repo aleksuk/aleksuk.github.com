@@ -41,12 +41,10 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
 #css-zen-garden {
 	background: #E8E0D5 url(img/flora.gif) repeat-y center;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
-
 .page-wrapper {
 	position:  relative;
 	margin: 0 auto;
@@ -56,44 +54,35 @@ table {
 	padding-bottom: 10px;
 	overflow: hidden;
 }
-
 #zen-intro {
-	background: url(img/zensky.jpg) no-repeat center;
+	background: url(img/zensky.jpg) no-repeat center 0px;
 	position: relative; 
-	height: 700px;
-	top: -180px;
 }
 header {
 	background: url(img/cssdemo.gif) no-repeat bottom;
 	height: 67px;
-	padding-top: 520px;
+	padding-top:340px;
 }
-
 header h1, header h2 {
 	display: none;
 }
-
 #zen-summary {
 	margin-left: 200px; 
 	width: 306px;
 }
-
 #zen-summary p {
 	color: #9F927F;
 	font-size: 9px;
 	margin: 17px 5px 12px 13px;
 }
-
 #zen-summary p:first-child {
 	display: none;
 }
-
 #zen-summary a:link, #zen-summary a:visited {
 	text-decoration: none;
 	color: #716B8B;
 	background: #EBEEF2;
 }
-
 #zen-summary a:hover {
 	color: #384A5F;
 	background: #F1EFE9;
@@ -103,7 +92,6 @@ header h1, header h2 {
 	border-left:2px solid #EBEEF2;
 	border-right:2px solid #EBEEF2;
 }
-
 #zen-preamble {
 	margin-left: 199px; 
 	padding-top: 40px;
@@ -112,31 +100,24 @@ header h1, header h2 {
 	color: #9F927F;
 	background: url(img/road.gif) no-repeat;
 }
-
 #zen-preamble h3 {
 	display: none;
 }
-
 #zen-preamble p {
 	margin: 8px 10px 11px 14px;
 	font-size: 11px;
 	line-height: 16px;
 }
-
 #zen-supporting {
 	margin-left: 203px; 
 	color: #9F927F;
-	padding-top: 2px;
-
 }
-
 #zen-supporting div {
 	width: 298px;
 	padding-top: 48px;
 	margin-left: 10px; 
 
 }
-
 #zen-supporting h3 {
 	display: none;
 }
@@ -149,24 +130,20 @@ header h1, header h2 {
 	background: #F1EFE9;
 	text-decoration: none;
 }
-
 #zen-supporting footer a {
 	border-left:2px solid #EBEEF2;
 	border-right:2px solid #EBEEF2;
 }
-
 #zen-supporting footer a:hover {
 	color: #384A5F;
 	background: #F1EFE9;
 	text-decoration: none;
 }
-
 #zen-supporting a:link, #zen-supporting a:visited {
 	text-decoration: none;
 	color: #716B8B;
 	background: #EBEEF2;
 }
-
 #zen-supporting p {
 	margin: 0px 20px 11px 0px;
 	font-size: 11px;
@@ -177,27 +154,22 @@ header h1, header h2 {
 	font-size: 9px;
 	line-height: 15px;
 }
-
 #zen-explanation {
 	padding-top: 20px;
 	background: url(img/allabout.gif) no-repeat;
 	position: relative;
 
 }
-
 #zen-participation {
 	background: url(img/participation.gif) no-repeat;
 }
-
 #zen-benefits {
 	background: url(img/benefits.gif) no-repeat;
 }
-
 #zen-requirements {
 	background: url(img/requirements.gif) no-repeat;
 	padding-bottom: 10px;
 }
-
 footer {
 	padding-top: 7px;
 	margin-bottom: 3px;
@@ -205,7 +177,6 @@ footer {
 	font-size: 9px;
 	word-spacing: 15px;
 }
-
 .sidebar {
 	position: absolute;
 	top: 407px;
@@ -213,7 +184,6 @@ footer {
 	float: left;
 
 }
-
 .sidebar ul li a:first-child {
 	color: blue;
 	display: block;
@@ -222,31 +192,25 @@ footer {
 	font-size: 11px;
 	color: #384A5F;
 }
-
 .sidebar div h3 {
 	display: none;
 }
-
 .sidebar ul li a {
 	text-decoration: none;
 	color: #929B70;
 	display: inline-block;
 
 }
-
 .sidebar ul li a:visited, #design-selection ul li a:link, {
 	color: #929B70;
 }
-
 .sidebar ul li a:hover, #design-selection ul li a:first-child:hover {
 	color: #746E50;
 }
-
 #design-selection {
 	background: url(img/selectdesign.gif) no-repeat;
 	padding-top: 42px;
 }
-
 #design-selection ul li{
 	background: url(img/liBG.gif) repeat-x;
 	height: 48px;
@@ -261,34 +225,27 @@ footer {
 	display: inline;
 	line-height: 2px;
 }
-
 #design-archives {
 	background: url(img/archives.gif) no-repeat;
 	padding-top: 40px;
 }
-
 #design-archives ul li, #zen-resources ul li {
 	background: url(img/liBG.gif) repeat-x;
 	height: 26px;
 	border-bottom: 1px solid #DFDCD1;
-/*	padding-top: 8px;*/
 	padding-left: 14px;
 	font-size: 9px;
 	color: #9F927F;
 	line-height: 16px;
 }
-
 #design-archives ul li:first-child {
 	line-height: 18px;
 }
-
 #zen-resources ul li {
 	line-height: 14px;
 	height: 25px;
 }
-
 #zen-resources {
 	background: url(img/resources.gif) no-repeat;
 	padding-top: 42px;
 }
-
