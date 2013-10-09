@@ -51,8 +51,8 @@ table {
 	position:  relative;
 	margin: 0 auto;
 	width: 505px;
-	border-top: 10px solid #B9AA94;
-	border-bottom: 10px solid #B9AA94;
+	border-top: 11px solid #B9AA94;
+	border-bottom: 11px solid #B9AA94;
 	padding-bottom: 10px;
 	overflow: hidden;
 }
@@ -81,7 +81,7 @@ header h1, header h2 {
 #zen-summary p {
 	color: #9F927F;
 	font-size: 9px;
-	margin: 15px 5px 15px 15px;
+	margin: 17px 5px 12px 13px;
 }
 
 #zen-summary p:first-child {
@@ -99,11 +99,15 @@ header h1, header h2 {
 	background: #F1EFE9;
 	text-decoration: none;
 }
+#zen-summary a {
+	border-left:2px solid #EBEEF2;
+	border-right:2px solid #EBEEF2;
+}
 
 #zen-preamble {
-	margin-left: 200px; 
+	margin-left: 199px; 
 	padding-top: 40px;
-	width: 306px;
+	width: 305px;
 	position: relative;
 	color: #9F927F;
 	background: url(img/road.gif) no-repeat;
@@ -114,20 +118,21 @@ header h1, header h2 {
 }
 
 #zen-preamble p {
-	margin: 0 10px 15px 15px;
+	margin: 8px 10px 11px 14px;
 	font-size: 11px;
-	line-height: 15px;
+	line-height: 16px;
 }
 
 #zen-supporting {
-	margin-left: 200px; 
+	margin-left: 203px; 
 	color: #9F927F;
+	padding-top: 2px;
 
 }
 
 #zen-supporting div {
-	width: 306px;
-	padding-top: 50px;
+	width: 298px;
+	padding-top: 48px;
 	margin-left: 10px; 
 
 }
@@ -135,11 +140,19 @@ header h1, header h2 {
 #zen-supporting h3 {
 	display: none;
 }
-
+#zen-supporting p a {
+	border-left:2px solid #EBEEF2;
+	border-right:2px solid #EBEEF2;
+}
 #zen-supporting p a:hover {
 	color: #384A5F;
 	background: #F1EFE9;
 	text-decoration: none;
+}
+
+#zen-supporting footer a {
+	border-left:2px solid #EBEEF2;
+	border-right:2px solid #EBEEF2;
 }
 
 #zen-supporting footer a:hover {
@@ -155,12 +168,18 @@ header h1, header h2 {
 }
 
 #zen-supporting p {
-	margin: 0px 20px 15px 5px;
+	margin: 0px 20px 11px 0px;
 	font-size: 11px;
+	line-height: 16px;
+}
+#zen-requirements  p:last-child {
+	padding-top: 15px;
+	font-size: 9px;
 	line-height: 15px;
 }
 
 #zen-explanation {
+	padding-top: 20px;
 	background: url(img/allabout.gif) no-repeat;
 	position: relative;
 
@@ -180,9 +199,11 @@ header h1, header h2 {
 }
 
 footer {
+	padding-top: 7px;
+	margin-bottom: 3px;
 	margin-left: 10px;
 	font-size: 9px;
-	word-spacing: 20px;
+	word-spacing: 15px;
 }
 
 .sidebar {
@@ -196,8 +217,8 @@ footer {
 .sidebar ul li a:first-child {
 	color: blue;
 	display: block;
-	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-top: 6px;
+	padding-bottom: 5px;
 	font-size: 11px;
 	color: #384A5F;
 }
@@ -210,6 +231,7 @@ footer {
 	text-decoration: none;
 	color: #929B70;
 	display: inline-block;
+
 }
 
 .sidebar ul li a:visited, #design-selection ul li a:link, {
@@ -222,15 +244,22 @@ footer {
 
 #design-selection {
 	background: url(img/selectdesign.gif) no-repeat;
-	padding-top: 40px;
+	padding-top: 42px;
 }
 
 #design-selection ul li{
 	background: url(img/liBG.gif) repeat-x;
 	height: 48px;
-	padding-left: 10px;
+	padding-left: 14px;
 	font-size: 9px;
 	color: #9F927F;
+}
+#design-selection ul li a:first-child {
+	padding-top: 12px;
+}
+#design-selection ul li a:last-child {
+	display: inline;
+	line-height: 2px;
 }
 
 #design-archives {
@@ -240,13 +269,26 @@ footer {
 
 #design-archives ul li, #zen-resources ul li {
 	background: url(img/liBG.gif) repeat-x;
-	height: 28px;
-	padding-left: 10px;
+	height: 26px;
+	border-bottom: 1px solid #DFDCD1;
+/*	padding-top: 8px;*/
+	padding-left: 14px;
 	font-size: 9px;
 	color: #9F927F;
+	line-height: 16px;
+}
+
+#design-archives ul li:first-child {
+	line-height: 18px;
+}
+
+#zen-resources ul li {
+	line-height: 14px;
+	height: 25px;
 }
 
 #zen-resources {
 	background: url(img/resources.gif) no-repeat;
-	padding-top: 40px;
+	padding-top: 42px;
 }
+
