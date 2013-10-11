@@ -86,7 +86,6 @@
 		event = event || window.event;
 		var target = event.target || event.srcElement,
 			type = event.type;
-			event.preventDefault();
 
 		if (target !== this) {
 			target = closest(target, function (node) {
