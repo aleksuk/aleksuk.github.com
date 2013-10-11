@@ -35,7 +35,7 @@
 		return parent;
 	}
 
-	var cookieName = 'linksInfo ' + new Date(),
+	var cookieName = '__linksInfo',
 		hostname,
 		TIME_OVER_THE_LINK = 1000;
 
