@@ -43,6 +43,10 @@
 		hostname = location.host.slice(location.host.indexOf('www.') + 4);
 	} 
 
+	var options = {
+			'domain' : hostname
+		}
+
 	function setCookie(name, value, options) {
 		var optionsStr;
 		for (var key in options) {
@@ -63,14 +67,14 @@
 			value[linkName]['numberOfHover'] = 1;
 		}
 
-		setCookie(cookieName, JSON.stringify(value), {'domain' : hostname});
+		setCookie(cookieName, JSON.stringify(value), options);
 	}
 
 	function removeLinkInfo(value, linkName) {
 		if (value[linkName]) {
 			delete value[linkName];
 		} 
-		setCookie(cookieName, JSON.stringify(value), {'domain' : hostname});
+		setCookie(cookieName, JSON.stringify(value), options);
 	}
 
 	function editInfoInCookie(targetLink, actionWithCookie) {
