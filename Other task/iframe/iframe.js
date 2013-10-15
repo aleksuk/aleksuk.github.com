@@ -1,10 +1,6 @@
-/*	Недостаток: пока не загрузится содержимое ифрейма - ифрейм не замени содержимое страницы,
-	неудобно при востановлении сессии */
-
 "use strict";
 
 (function () {
-
 	function addIframe(node, url) {
 		var iframe = document.createElement('iframe');
 
@@ -36,7 +32,7 @@
 		setCookie(cookieName, value);
 	}
 
-	function reopenSession(cookieName, tab, iframe) {
+	function restoreActiveTab(cookieName, tab, iframe) {
 		var cookieValue = getCookie(cookieName);
 
 		if (cookieValue) {
@@ -50,7 +46,6 @@
 			tab.eq(0).addClass('active');
 			iframe.eq(0).addClass('__visible');
 		}
-
 	}
 
 	var style = document.createElement('style'),
@@ -60,6 +55,7 @@
 					+ 'display: none;'
 					+ 'width: 100%;'
 					+ 'overflow: hidden;'
+					+ 'height: 0px;'
 					+ '}'
 					+ '.__visible {'
 					+ 'display: block;'
@@ -67,21 +63,23 @@
 
 	document.querySelector('head').appendChild(style);
 
-	var div = $('.content_left'),
+	var contentColumn = $('.content_left'),
 		mainMenu = $('.main_menu a');
 
-	div.children().addClass('__remove');
+	contentColumn.children().addClass('__remove');
 
 	mainMenu.each(function () {
-		addIframe(div, this.href);
+		addIframe(contentColumn, this.href);
 	});
 
 	var	iframe = $('.__iframe');
-
+	var iframeLoad = 0;
 	iframe.load(function () {
 		var iframeContent = $(this).contents(),
-			width = div.width(),
+			width = $('.content_left').width(),
 			$this = $(this); 
+	
+		$('.content_left').css('height', '');
 
 		iframeContent.find('#header').remove();
 		iframeContent.find('.sidebar_right').remove();
@@ -89,30 +87,30 @@
 		iframeContent.find('#footer').remove();
 		iframeContent.find('.footer_logos').remove();
 		iframeContent.find('#layout').css('padding', '0');
-		iframeContent.find('.content_left').css('width', width.toString());
+		iframeContent.find('.content_left').css('width', width);
 		iframeContent.find('html').css('overflow', 'hidden');
-
-		iframeContent.find('.page-nav a').on('click', function () {
-			var width = div.width();
-
-			iframeContent.find('.content_left').css('width', width.toString());
-			
-			if (iframeContent.find('.content_left').height().toString()) {
-				$this.css('height', iframeContent.find('.content_left').height().toString());
-			}
+		iframeContent.find('body').on('click', 'a', function () {
+				$('.content_left').css('height', '1px');
+				$this.css('height', 0);		
 		});
+
+		iframeLoad += 1;
 
 		//Без этой проверки в ФФ отрабатывает некорректно, получает высоту элемента === 0
 		if( iframeContent.find('.content_left').height() ) {
-			$this.css('height', iframeContent.find('.content_left').height().toString());
-			div.children('.__remove').remove();	
+			$this.css('height', iframeContent.find('.content_left').height());
+		}
+
+		if (iframeLoad === iframe.length) {
+			$('.content_left').children('.__remove').remove();	
 		}
 
 		//Изменение ифрейма, если был изменен размер окна браузера
 		function resizeIframe() {
-			var width = div.width();
-			iframeContent.find('.content_left').css('width', width.toString());
-			$this.css('height', iframeContent.find('.content_left').height().toString());	
+			var width = $('.content_left').width();
+
+			iframeContent.find('.content_left').css('width', width);
+			$this.css('height', iframeContent.find('.content_left').height());	
 		}
 
 		$(window).on('resize', resizeIframe);
@@ -138,12 +136,10 @@
 						.contents()
 						.find('.content_left')
 						.height()
-						.toString()
 					);		
-			}
-					
+			}		
 		})
 	})
 
-	reopenSession(cookieName, mainMenu, iframe);
+	restoreActiveTab(cookieName, mainMenu, iframe);
 })();
