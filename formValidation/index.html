@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "utf-8">
+	<title>Учеба</title> 
+	<link rel = "stylesheet" type = "text/css" href = "validation.css">
+	<script src = "validation.js"></script>
+</head>
+<body>
+	<form action = "/form-action" method = "post" >
+		<label>Введите email: <input type = "text" name = "mail"> </label>
+		<span class = "error has-error"></span> <br />
+		<label>Введите пароль: <input class = "pass" type = "password" name = "password"> </label>
+		<span class = "error has-error"></span> <br />
+		<span class = "strength">Сложность пароля: 		
+			<div class="border"><div class = "pass passwordStrength" ></div> </div><br /></span><br />
+		<label>Подтвердите пароль: <input class = "pass" type = "password" name = "chekPassword"> </label>
+		<span class = "error has-error"></span> <br />
+		<input type = "submit">
+	</form>
+</body>
+</html>
