@@ -1,6 +1,5 @@
 // При переполнении куки, создается новая куки. Массив имен кук, в которых хранятся данные,
 // о ссылках, в свою очередь тоже хранятся в куки. 
-
 "use strict";
 
 (function () {
@@ -142,8 +141,8 @@
 			clearTimeout(timer);
 		}
 
-		addEvent(document.body, 'mouseout', mouseoutHander);	
+		addEvent(document, 'mouseout', mouseoutHander);	
 	}
-	addEvent(document.body, 'mouseover', aboutLinkHover);
+	addEvent(document, 'mouseover', aboutLinkHover);
 
 })();
