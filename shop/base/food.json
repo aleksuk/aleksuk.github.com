@@ -1,0 +1,14 @@
+[	{
+		"name" : "bread",
+		"price" : 10,
+		"quantity" : 90
+	} , {
+		"name" : "milk",
+		"price" : 20,
+		"quantity" : 13
+	} , {
+		"name" : "shugar",
+		"price" : 30,
+		"quantity" : 4
+	}
+]

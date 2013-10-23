@@ -1,0 +1,10 @@
+[	{
+		"name" : "chair",
+		"price" : 200,
+		"quantity" : 2
+	} , {
+		"name" : "table",
+		"price" : 400,
+		"quantity" : 1
+	}
+]

@@ -1,0 +1,22 @@
+[	{
+		"name" : "pliers",
+		"price" : 420,
+		"quantity" : 2
+	} , {
+		"name" : "screwdriver",
+		"price" : 250,
+		"quantity" : 30
+	} , {
+		"name" : "hammer",
+		"price" : 21,
+		"quantity" : 2
+	}, {
+		"name" : "hammer",
+		"price" : 21,
+		"quantity" : 2
+	}, {
+		"name" : "drill",
+		"price" : 120,
+		"quantity" : 41
+	}
+]

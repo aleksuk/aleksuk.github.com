@@ -1,0 +1,19 @@
+[
+	{
+		"name" : "milk",
+		"price" : 20,
+		"quantity" : 13
+	}, {
+		"name" : "wine",
+		"price" : 97,
+		"quantity" : 12
+	}, {
+		"name" : "shugar",
+		"price" : 30,
+		"quantity" : 4
+	}, {
+		"name" : "beer",
+		"price" : 55,
+		"quantity" : 20
+	}
+]
