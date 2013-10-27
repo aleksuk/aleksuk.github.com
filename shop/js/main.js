@@ -5,69 +5,105 @@ function storeManagement() {
 		productList = $('.product'),
 		basketNode = $('.basket');
 
-	var Mediator = (function () {
+	var Mediator = (function() {
 		var events = {},
 			handlers = [],
 			instance = {
-				subscriber: function (eventName, handler) {
+				subscriber: function(eventName, handler) {
 					if (!events[eventName]) {
 						events[eventName] = [];
 					}
 					events[eventName].push(handler);
 				},
 
-				unsubscribe : function (eventName, handler) {
+				unsubscribe: function(eventName, handler) {
 					if (eventName && handler === undefined) {
 						delete events[eventName];
 					} else {
 						if (events[eventName]) {
-							events[eventName] = events[eventName].filter(function (handler_) {
+							events[eventName] = events[eventName].filter(function(handler_) {
 								return handler_ !== handler;
-							})
+							});
 						}
 					}
 				},
 
-				publish : function (eventName, data) {
+				publish: function(eventName, data) {
 					if (events[eventName] && events[eventName].length) {
-						for (var i = 0; i < events[eventName].length; i +=1) {
+						for (var i = 0; i < events[eventName].length; i += 1) {
 							events[eventName][i](data);
 						}
 					}
 				}
 			};
 
-		return function () {
+		return function() {
 			return instance;
-		}
+		};
 	})();
 
-	var CookieModule = (function (Mediator, $) {
+	var SortingModule = (function(Mediator) {
+		function SortingModule() {
+			var self = this;
+			this.mediator = new Mediator();
+			this.mediator.subscriber('sorting', function(data) {
+				self.sorting(data);
+			});
+		}
+
+		SortingModule.prototype.sorting = function(obj) {
+			var sortingType = obj['sortingType'],
+				sortingFunction = obj['sortingFunction'],
+				sortingEventName = obj['sortingEventName'],
+				sortingDataNames = obj['sortingDataNames'],
+				sortNode = obj['sortNode'],
+				sortingTypes = ['__sortName', '__sortPrice'];
+
+			if (sortNode.hasClass('__' + sortingType)) {
+				sortingDataNames.sort(sortingFunction).reverse();
+				sortNode.removeClass('__' + sortingType);
+			} else {
+				for (var i = 0; i < sortingTypes.length; i += 1) {
+					if (sortNode.hasClass(sortingTypes[i])) {
+						sortNode.removeClass(sortingTypes[i]);
+					}
+				}
+
+				sortingDataNames.sort(sortingFunction);
+				sortNode.addClass('__' + sortingType);
+			}
+			this.mediator.publish(obj['sortingEventName']);
+		}
+
+		return SortingModule;
+	})(Mediator);
+
+	var CookieModule = (function(Mediator, $) {
 		function CookieModule() {
 			this.cookieName = 'basketItems';
 			var self = this,
 				defaulCookieValue = {
-					'TotalPrice' : 0,
-					'TotalItems' : 0
+					'TotalPrice': 0,
+					'TotalItems': 0
 				},
-				cookieValue = ( $.cookie(this.cookieName) ) ? JSON.parse( $.cookie(this.cookieName) ) : defaulCookieValue;
+				cookieValue = ($.cookie(this.cookieName)) ? JSON.parse($.cookie(this.cookieName)) : defaulCookieValue;
 
 			this.mediator = new Mediator();
 			this.mediator.publish('giveCookieValue', cookieValue);
-			this.mediator.subscriber('saveInCookie', function (data) {
+			this.mediator.subscriber('saveInCookie', function(data) {
 				self.editCookie(data);
 			});
 		}
 
-		CookieModule.prototype.editCookie = function (obj) {
+		CookieModule.prototype.editCookie = function(obj) {
 			var data = JSON.stringify(obj);
-	 		$.cookie(this.cookieName, data);
+			$.cookie(this.cookieName, data);
 		}
 
 		return CookieModule;
 	})(Mediator, window.jQuery);
 
-	var Navigation = (function (navigationNode, location, Mediator, $) {
+	var Navigation = (function(navigationNode, location, Mediator, $) {
 		function Navigation() {
 			var self = this;
 
@@ -82,7 +118,7 @@ function storeManagement() {
 			navigationNode.on('click', 'a', changeDepartment);
 		}
 
-		Navigation.prototype.setActiveTab = function (link) {
+		Navigation.prototype.setActiveTab = function(link) {
 			var linksNode = navigationNode.find('a');
 			navigationNode.find('li').removeClass('active');
 
@@ -100,15 +136,19 @@ function storeManagement() {
 		return Navigation;
 	})(navigationNode, location, Mediator, window.jQuery);
 
-	var ProductContent = (function (productList, basket, Mediator, $, location) {
-		function ProductContent () {
+	var ProductContent = (function(productList, basket, Mediator, $, location) {
+		function ProductContent() {
 			var self = this;
 
+			this.eventName = 'productList sorted';
 			this.LOAD_PRODUCT_LIST_URL = location.href;
 			this.mediator = new Mediator();
-			this.mediator.subscriber('processedContent', function (data) {
+			this.mediator.subscriber('processedContent', function(data) {
 				self.getContent(data);
 			});
+			this.mediator.subscriber(this.eventName, function() {
+				self.addContentAfterSorting();
+			})
 			this.getContent(self.LOAD_PRODUCT_LIST_URL);
 			this.sortNode = productList.find('.sort');
 
@@ -124,23 +164,18 @@ function storeManagement() {
 			this.sortNode.on('click', 'span', sortProduct);
 		}
 
-		ProductContent.prototype.editContent = function (obj, listItem) {
-			var info;
+		ProductContent.prototype.editContent = function(obj, listItem) {
+			var info,
+				listItemNode = $(listItem);
 
 			for (var key in obj) {
-				info = document.createElement('span');
-				info.className = key;
-
-				if (key === 'price') {
-					info.innerHTML = obj[key] + '$ '
-				} else {
-					info.innerHTML = obj[key] + ' ';
-				}
-				listItem.appendChild(info);
+				listItemNode.append('<span class ="' + key + '">' + obj[key] + (function(key) {
+					return (key === 'price') ? '$ ' : ' ';
+				})(key) + '</span>');
 			}
 		}
 
-		ProductContent.prototype.addContent = function (data) {
+		ProductContent.prototype.addContent = function(data) {
 			var list = document.createElement('ul'),
 				listItems = [];
 
@@ -155,7 +190,7 @@ function storeManagement() {
 			productList.append(list);
 		}
 
-		ProductContent.prototype.getContent = function (contentUrl) {
+		ProductContent.prototype.getContent = function(contentUrl) {
 			var self = this;
 
 			if (contentUrl && contentUrl.indexOf('#') !== -1) {
@@ -163,45 +198,47 @@ function storeManagement() {
 			} else {
 				contentUrl = 'food';
 			}
-			
-			contentUrl = '/shop/base/' + contentUrl + '.json';
+
+			contentUrl = '/base/' + contentUrl + '.json';
 
 			$.ajax({
 				url: contentUrl,
 				dataType: 'json',
-				success: function (data) {
+				success: function(data) {
 					self.addContent(data);
 				}
 			})
 		}
 
-		ProductContent.prototype.sorting = function (node) {
-			var sortingSpanNode = $(node);
+		ProductContent.prototype.sorting = function(node) {
+			var sortingSpanNode = $(node),
+				dataFromSorting = {},
+				sort = {
+					'sortName': function(a, b) {
+						if (a['name'] > b['name']) return 1;
+						if (a['name'] < b['name']) return -1;
+					},
 
-			function sortName(a, b) {
-				if (a['name'] > b['name']) return 1;
-				if (a['name'] < b['name']) return -1;
+					'sortPrice': function(a, b) {
+						if (a['price'] > b['price']) return 1;
+						if (a['price'] < b['price']) return -1;
+					}
+				};
+
+			for (var key in sort) {
+				if (sortingSpanNode.hasClass(key)) {
+					dataFromSorting['sortingType'] = key;
+					dataFromSorting['sortingFunction'] = sort[key];
+					dataFromSorting['sortingDataNames'] = this.contentArr;
+					dataFromSorting['sortingEventName'] = this.eventName;
+					dataFromSorting['sortNode'] = this.sortNode;
+					this.mediator.publish('sorting', dataFromSorting);
+					break;
+				}
 			}
+		}
 
-			function sortPrice(a, b) {
-				if(a['price'] > b['price']) return 1;
-				if(a['price'] > b['price']) return -1;
-			}
-
-			if ( sortingSpanNode.hasClass('sortName') && !this.sortNode.hasClass('__sortedName') ) {
-				this.contentArr.sort(sortName);
-				this.sortNode.addClass('__sortedName').removeClass('__sortedPrice');
-			} else if ( sortingSpanNode.hasClass('sortPrice') && !this.sortNode.hasClass('__sortedPrice') ) {
-				this.contentArr.sort(sortPrice);
-				this.sortNode.addClass('__sortedPrice').removeClass('__sortedName');
-			} else if ( sortingSpanNode.hasClass('sortName') && this.sortNode.hasClass('__sortedName') ) {
-				this.contentArr.sort(sortName).reverse();
-				this.sortNode.removeClass('__sortedName');
-			} else if ( sortingSpanNode.hasClass('sortPrice') && this.sortNode.hasClass('__sortedPrice') ) {
-				this.contentArr.sort(sortPrice).reverse();
-				this.sortNode.removeClass('__sortedPrice');
-			}
-
+		ProductContent.prototype.addContentAfterSorting = function() {
 			productList.find('ul').remove();
 			this.addContent(this.contentArr);
 		}
@@ -209,29 +246,33 @@ function storeManagement() {
 		return ProductContent;
 	})(productList, basketNode, Mediator, window.jQuery, location);
 
-	var BasketModule = (function (Mediator, basket, $) {
-		function BasketModule () {
+	var BasketModule = (function(Mediator, basket, $) {
+		function BasketModule() {
 			var self = this;
-
+			//
+			this.eventName = 'basket sorted';
 			this.mediator = new Mediator();
 			this.totalPrice = basket.find('.price');
 			this.totalItems = basket.find('.items');
 			this.basketListNode = basket.find('ul');
 			this.sortNode = basket.find('.sort');
-			this.mediator.subscriber('changeProduct', function (data) {
+			this.mediator.subscriber('changeProduct', function(data) {
 				self.editProductInBasket(data);
 			});
-			this.mediator.subscriber('giveCookieValue', function (data) {
+			this.mediator.subscriber('giveCookieValue', function(data) {
 				self.savedBasketItems = data;
 				self.restoreWithCookie();
 			});
+			this.mediator.subscriber(this.eventName, function(data) {
+				self.addContentAfterSorting();
+			})
 
 			function pullWithBasket(event) {
 				self.editProductInBasket(this, true);
 			}
 
 			function sortProduct(event) {
-				self.sorting(this);
+				self.getDataFromSorting(this);
 			}
 
 			basket.on('click', 'li', pullWithBasket);
@@ -239,7 +280,7 @@ function storeManagement() {
 
 		}
 
-		BasketModule.prototype.editInfoInObject = function (node, isDeduction) {
+		BasketModule.prototype.editInfoInObject = function(node, isDeduction) {
 			var obj = this.savedBasketItems,
 				price = parseInt(node.children[1].innerHTML, 10),
 				quantity = parseInt(node.children[2].innerHTML, 10),
@@ -251,10 +292,10 @@ function storeManagement() {
 					obj[namePosition]['price'] += obj[namePosition]['singlePrice'];
 				} else {
 					obj[namePosition] = {
-						'price' : price,
-						'quantity' : quantity,
-						'singlePrice' : price,
-						'singleQuantity' : quantity
+						'price': price,
+						'quantity': quantity,
+						'singlePrice': price,
+						'singleQuantity': quantity
 					};
 				}
 
@@ -270,18 +311,18 @@ function storeManagement() {
 					delete obj[namePosition];
 				}
 			}
-			
+
 		}
 
-		BasketModule.prototype.editProductInBasket = function (node, isDeduction) {
+		BasketModule.prototype.editProductInBasket = function(node, isDeduction) {
 			var product,
 				productName = basket.find('.name'),
 				price = parseInt(node.children[1].innerHTML, 10),
 				productsInBasket = basket.find('li'),
 				obj = this.savedBasketItems,
 				namePosition = node.children[0].innerHTML;
-				this.editInfoInObject(node, isDeduction);
-		
+			this.editInfoInObject(node, isDeduction);
+
 			if (obj[namePosition]) {
 				for (var i = 0; i < productName.length; i += 1) {
 					if (productName.get(i).innerHTML === node.children[0].innerHTML) {
@@ -297,7 +338,7 @@ function storeManagement() {
 			}
 
 			if (!isDeduction) {
-				this.basketListNode.append( node.cloneNode(true) );
+				this.basketListNode.append(node.cloneNode(true));
 			} else {
 				$(node).remove();
 			}
@@ -307,7 +348,7 @@ function storeManagement() {
 			this.mediator.publish('saveInCookie', obj);
 		}
 
-		BasketModule.prototype.restoreWithCookie = function () {
+		BasketModule.prototype.restoreWithCookie = function() {
 			var obj = this.savedBasketItems;
 
 			this.totalPrice.get(0).innerHTML = obj['TotalPrice'];
@@ -315,12 +356,12 @@ function storeManagement() {
 
 			for (var key in obj) {
 				if (key !== 'TotalItems' && key !== 'TotalPrice') {
-					this.basketListNode.append( this.restoreProductList(obj[key], key) );
+					this.basketListNode.append(this.restoreProductList(obj[key], key));
 				}
 			}
 		}
 
-		BasketModule.prototype.restoreProductList = function (obj, name) {
+		BasketModule.prototype.restoreProductList = function(obj, name) {
 			var listNode = document.createElement('li'),
 				nameProductNode = document.createElement('span');
 
@@ -334,7 +375,7 @@ function storeManagement() {
 					tempNode.className = key;
 
 					if (key === 'price') {
-						tempNode.innerHTML = obj[key] + '$ '
+						tempNode.innerHTML = obj[key] + '$ ';
 					} else {
 						tempNode.innerHTML = obj[key] + ' ';
 					}
@@ -344,50 +385,54 @@ function storeManagement() {
 			return listNode;
 		}
 
-		BasketModule.prototype.sorting = function (node) {
+		BasketModule.prototype.getDataFromSorting = function(node) {
 			var obj = this.savedBasketItems,
 				sortingSpanNode = $(node),
-				self = this;
+				self = this,
+				sort = {
+					'sortName': function(a, b) {
+						if (a > b) return 1;
+						if (a < b) return -1;
+					},
+
+					'sortPrice': function(a, b) {
+						if (obj[a]['price'] > obj[b]['price']) return 1;
+						if (obj[a]['price'] < obj[b]['price']) return -1;
+					}
+				},
+				dataFromSorting = {};
 
 			this.productNamesArr = [];
 
-			function sortName(a, b) {
-				if (a > b) return 1;
-				if (a < b) return -1;
-			}
-
-			function sortPrice(a, b) {
-				if (obj[a]['price'] > obj[b]['price']) return 1;
-				if (obj[a]['price'] < obj[b]['price']) return -1;
-			}
-			
 			for (var key in obj) {
 				if (key !== 'TotalItems' && key !== 'TotalPrice') {
 					this.productNamesArr.push(key);
-				} 
+				}
 			}
-		
-			if ( sortingSpanNode.hasClass('sortName') && !this.sortNode.hasClass('__sortedName') ) {
-				this.productNamesArr.sort(sortName);
-				this.sortNode.addClass('__sortedName').removeClass('__sortedPrice');
-			} else if (sortingSpanNode.hasClass('sortPrice') && !this.sortNode.hasClass('__sortedPrice') ) {
-				this.productNamesArr.sort(sortPrice);
-				this.sortNode.addClass('__sortedPrice').removeClass('__sortedName');
-			} else if (sortingSpanNode.hasClass('sortName') && this.sortNode.hasClass('__sortedName') ) {
-				this.productNamesArr.sort(sortName).reverse();
-				this.sortNode.removeClass('__sortedName');
-			} else if (sortingSpanNode.hasClass('sortPrice') && this.sortNode.hasClass('__sortedPrice') ) {
-				this.productNamesArr.sort(sortPrice).reverse();
-				this.sortNode.removeClass('__sortedPrice');
+
+			for (var key in sort) {
+				if (sortingSpanNode.hasClass(key)) {
+					dataFromSorting['sortingType'] = key;
+					dataFromSorting['sortingFunction'] = sort[key];
+					dataFromSorting['sortingDataNames'] = this.productNamesArr;
+					dataFromSorting['sortingEventName'] = this.eventName;
+					dataFromSorting['sortNode'] = this.sortNode;
+					this.mediator.publish('sorting', dataFromSorting);
+					break;
+				}
 			}
+		}
+
+		BasketModule.prototype.addContentAfterSorting = function() {
+			var obj = this.savedBasketItems;
 
 			basket.find('li').remove();
 
 			for (var i = 0; i < this.productNamesArr.length; i += 1) {
-				this.basketListNode.append( this.restoreProductList(obj[self.productNamesArr[i]], this.productNamesArr[i]) );
+				this.basketListNode.append(this.restoreProductList(obj[this.productNamesArr[i]], this.productNamesArr[i]));
 			}
-		}
 
+		}
 		return BasketModule;
 	})(Mediator, basketNode, window.jQuery);
 
@@ -396,8 +441,9 @@ function storeManagement() {
 		new ProductContent();
 		new BasketModule();
 		new CookieModule();
+		new SortingModule();
 	}
-	
+
 	initialization();
 }
 
