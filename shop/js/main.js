@@ -199,7 +199,7 @@ function storeManagement() {
 				contentUrl = 'food';
 			}
 
-			contentUrl = '/base/' + contentUrl + '.json';
+			contentUrl = '/shop/base/' + contentUrl + '.json';
 
 			$.ajax({
 				url: contentUrl,
