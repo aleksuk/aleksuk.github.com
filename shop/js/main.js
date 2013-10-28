@@ -42,8 +42,8 @@ function storeManagement() {
 		};
 	})();
 
-	var SortingModule = (function (Mediator) {
-		function SortingModule() {
+	var Sorting = (function (Mediator) {
+		function Sorting() {
 			var self = this;
 			this.mediator = new Mediator();
 			this.mediator.subscriber('sorting', function (data) {
@@ -51,7 +51,7 @@ function storeManagement() {
 			});
 		}
 
-		SortingModule.prototype.sorting = function (obj) {
+		Sorting.prototype.sorting = function (obj) {
 			var sortingType = obj['sortingType'],
 				sortingFunction = obj['sortingFunction'],
 				sortingEventName = obj['sortingEventName'],
@@ -75,11 +75,11 @@ function storeManagement() {
 			this.mediator.publish(obj['sortingEventName']);
 		}
 
-		return SortingModule;
+		return Sorting;
 	})(Mediator);
 
-	var CookieModule = (function (Mediator, $) {
-		function CookieModule() {
+	var Cookie = (function (Mediator, $) {
+		function Cookie() {
 			this.cookieName = 'basketItems';
 			var self = this,
 				defaulCookieValue = {
@@ -95,12 +95,12 @@ function storeManagement() {
 			});
 		}
 
-		CookieModule.prototype.editCookie = function (obj) {
+		Cookie.prototype.editCookie = function (obj) {
 			var data = JSON.stringify(obj);
 			$.cookie(this.cookieName, data);
 		}
 
-		return CookieModule;
+		return Cookie;
 	})(Mediator, window.jQuery);
 
 	var Navigation = (function (navigationNode, location, Mediator, $) {
@@ -259,8 +259,8 @@ function storeManagement() {
 		return ProductContent;
 	})(productList, basketNode, Mediator, window.jQuery, location);
 
-	var BasketModule = (function (Mediator, basket, $) {
-		function BasketModule() {
+	var BasketContent = (function (Mediator, basket, $) {
+		function BasketContent() {
 			var self = this;
 			//
 			this.eventName = 'basket sorted';
@@ -293,7 +293,7 @@ function storeManagement() {
 
 		}
 
-		BasketModule.prototype.editInfoInObject = function (node, isDeduction) {
+		BasketContent.prototype.editInfoInObject = function (node, isDeduction) {
 			var obj = this.savedBasketItems,
 				price = parseInt(node.children[1].innerHTML, 10),
 				quantity = parseInt(node.children[2].innerHTML, 10),
@@ -328,7 +328,7 @@ function storeManagement() {
 
 		}
 
-		BasketModule.prototype.editProductInBasket = function (node, isDeduction) {
+		BasketContent.prototype.editProductInBasket = function (node, isDeduction) {
 			var product,
 				productName = basket.find('.name'),
 				price = parseInt(node.children[1].innerHTML, 10),
@@ -362,7 +362,7 @@ function storeManagement() {
 			this.mediator.publish('saveInCookie', obj);
 		}
 
-		BasketModule.prototype.restoreWithCookie = function () {
+		BasketContent.prototype.restoreWithCookie = function () {
 			var obj = this.savedBasketItems;
 
 			this.totalPrice.get(0).innerHTML = obj['TotalPrice'];
@@ -375,7 +375,7 @@ function storeManagement() {
 			}
 		}
 
-		BasketModule.prototype.restoreProductList = function (obj, name) {
+		BasketContent.prototype.restoreProductList = function (obj, name) {
 			var listNode = document.createElement('li'),
 				nameProductNode = document.createElement('span');
 
@@ -400,7 +400,7 @@ function storeManagement() {
 			return listNode;
 		}
 
-		BasketModule.prototype.getDataFromSorting = function (node) {
+		BasketContent.prototype.getDataFromSorting = function (node) {
 			var obj = this.savedBasketItems,
 				sortingSpanNode = $(node),
 				self = this,
@@ -443,7 +443,7 @@ function storeManagement() {
 			}
 		}
 
-		BasketModule.prototype.addContentAfterSorting = function () {
+		BasketContent.prototype.addContentAfterSorting = function () {
 			var obj = this.savedBasketItems;
 
 			basket.find('li').remove();
@@ -453,15 +453,15 @@ function storeManagement() {
 			}
 
 		}
-		return BasketModule;
+		return BasketContent;
 	})(Mediator, basketNode, window.jQuery);
 
 	function initialization() {
 		new Navigation();
 		new ProductContent();
-		new BasketModule();
-		new CookieModule();
-		new SortingModule();
+		new BasketContent();
+		new Cookie();
+		new Sorting();
 	}
 
 	initialization();
