@@ -57,7 +57,7 @@ function storeManagement() {
 				sortingEventName = obj['sortingEventName'],
 				sortingDataNames = obj['sortingDataNames'],
 				sortNode = obj['sortNode'],
-				sortingTypes = ['__sortName', '__sortPrice'];
+				sortingTypes = ['__sortName', '__sortPrice', '__sortQuantity'];
 
 			if (sortNode.hasClass('__' + sortingType)) {
 				sortingDataNames.sort(sortingFunction).reverse();
@@ -128,8 +128,10 @@ function storeManagement() {
 				for (var i = 0; i < linksNode.length; i += 1) {
 					if (linksNode.get(i).href === location.href) {
 						linksNode.eq(i).parent().addClass('active');
-					}
+						return;
+					} 
 				}
+				linksNode.eq(0).parent().addClass('active');
 			}
 		}
 
@@ -164,18 +166,23 @@ function storeManagement() {
 			this.sortNode.on('click', 'span', sortProduct);
 		}
 
-		ProductContent.prototype.editContent = function (obj, listItem) {
+		ProductContent.prototype.editContent = function (obj, listItem, id) {
 			var info,
 				listItemNode = $(listItem);
 
 			for (var key in obj) {
-				listItemNode.append('<span class ="' + key + '">' + obj[key] + (function (key) {
-					return (key === 'price') ? '$ ' : ' ';
-				})(key) + '</span>');
+				listItemNode.append('<span class ="' + key + '" ' 
+					+ (function (key, id) {
+						return (key === 'name') ? 'id="' + id + '"' : '';
+					})(key, id) + '>' 
+					+ obj[key] 
+					+ (function (key) {
+						return (key === 'price') ? '$ ' : ' ';
+					})(key) + '</span>');
 			}
 		}
 
-		ProductContent.prototype.addContent = function (data) {
+		ProductContent.prototype.addContent = function (data, typeOfGoods) {
 			var list = document.createElement('ul'),
 				listItems = [];
 
@@ -184,28 +191,29 @@ function storeManagement() {
 
 			for (var i = 0; i < data.length; i += 1) {
 				listItems[i] = document.createElement('li');
-				this.editContent(data[i], listItems[i]);
+				this.editContent(data[i], listItems[i], typeOfGoods + i);
 				list.appendChild(listItems[i]);
 			}
 			productList.append(list);
 		}
 
 		ProductContent.prototype.getContent = function (contentUrl) {
-			var self = this;
+			var self = this, 
+				typeOfGoods;
 
 			if (contentUrl && contentUrl.indexOf('#') !== -1) {
 				contentUrl = contentUrl.slice(contentUrl.indexOf('#') + 1);
 			} else {
 				contentUrl = 'food';
 			}
-
+			typeOfGoods = contentUrl;
 			contentUrl = '/shop/base/' + contentUrl + '.json';
 
 			$.ajax({
 				url: contentUrl,
 				dataType: 'json',
 				success: function (data) {
-					self.addContent(data);
+					self.addContent(data, typeOfGoods);
 				}
 			});
 		}
@@ -222,6 +230,11 @@ function storeManagement() {
 					'sortPrice': function (a, b) {
 						if (a['price'] > b['price']) return 1;
 						if (a['price'] < b['price']) return -1;
+					},
+
+					'sortQuantity': function (a, b) {
+						if (a['quantity'] > b['quantity']) return 1;
+						if (a['quantity'] < b['quantity']) return -1;
 					}
 				};
 
@@ -284,7 +297,7 @@ function storeManagement() {
 			var obj = this.savedBasketItems,
 				price = parseInt(node.children[1].innerHTML, 10),
 				quantity = parseInt(node.children[2].innerHTML, 10),
-				namePosition = node.children[0].innerHTML;
+				namePosition = node.children[0].innerHTML + node.children[0].getAttribute('id');
 
 			if (!isDeduction) {
 				if (obj[namePosition]) {
@@ -295,7 +308,8 @@ function storeManagement() {
 						'price': price,
 						'quantity': quantity,
 						'singlePrice': price,
-						'singleQuantity': quantity
+						'singleQuantity': quantity,
+						'id': node.children[0].getAttribute('id')
 					};
 				}
 
@@ -320,12 +334,12 @@ function storeManagement() {
 				price = parseInt(node.children[1].innerHTML, 10),
 				productsInBasket = basket.find('li'),
 				obj = this.savedBasketItems,
-				namePosition = node.children[0].innerHTML;
+				namePosition = node.children[0].innerHTML + node.children[0].getAttribute('id');
 			this.editInfoInObject(node, isDeduction);
-
 			if (obj[namePosition]) {
 				for (var i = 0; i < productName.length; i += 1) {
-					if (productName.get(i).innerHTML === node.children[0].innerHTML) {
+					console.warn(node.children[0].innerHTML);
+					if (productName.get(i).innerHTML === node.children[0].innerHTML && productName.get(i).getAttribute('id') === node.children[0].getAttribute('id')) {
 						product = productsInBasket.eq(i).children();
 						product.get(1).innerHTML = obj[namePosition]['price'] + '$ ';
 						product.get(2).innerHTML = obj[namePosition]['quantity'] + ' ';
@@ -366,11 +380,12 @@ function storeManagement() {
 				nameProductNode = document.createElement('span');
 
 			nameProductNode.className = 'name';
-			nameProductNode.innerHTML = name;
+			nameProductNode.id = obj['id'];
+			nameProductNode.innerHTML = name.slice(0, - obj['id'].length);
 			listNode.appendChild(nameProductNode);
 
 			for (var key in obj) {
-				if (key !== 'singlePrice' && key !== 'singleQuantity') {
+				if (key !== 'singlePrice' && key !== 'singleQuantity' && key !== 'id') {
 					var tempNode = document.createElement('span');
 					tempNode.className = key;
 
@@ -398,6 +413,11 @@ function storeManagement() {
 					'sortPrice': function (a, b) {
 						if (obj[a]['price'] > obj[b]['price']) return 1;
 						if (obj[a]['price'] < obj[b]['price']) return -1;
+					},
+
+					'sortQuantity': function (a, b) {
+						if (obj[a]['quantity'] > obj[b]['quantity']) return 1;
+						if (obj[a]['quantity'] < obj[b]['quantity']) return -1;
 					}
 				},
 				dataFromSorting = {};

@@ -9,9 +9,12 @@
 	<script src = "js/main.js"></script>
 </head>
 <body>
+	<div class="container">
+		<div class="header"><h2>Simple shop</h1></div>
 	<div class = "navigation">
+		<span class = "title"> Categories </span> <br />
 		<ul>
-			<li> <a href = "#food"> Food </a> </li>
+			<li> <a href = "#food" > Food </a> </li>
 			<li> <a href = "#drinks"> Drinks </a> </li>
 			<li> <a href = "#tools"> Tools </a> </li>
 			<li> <a href = "#furniture"> Furniture </a> </li>
@@ -19,25 +22,32 @@
 	</div>
 
 	<div class = "product">
-		<span>Product list:</span><br/>
+		<span class = "title">Product list</span><br/>
 		<div class = "sort">
-			<span class = "sortName">name sort</span><span class = "sortPrice"> price sort</span><br/><br/>
+			<span class = "_sort sortName">Name</span>
+			<span class = "_sort sortPrice">Price</span>
+			<span class = "_sort sortQuantity">Quality</span><br/><br/>
 		</div>
 
 	</div>
 
 	<div class = "basket">
-		<span>Items: <span class = "items">0</span> </span> <br />
-		<span>Price: <span class = "price">0</span>$ </span> <br /><br />
-		<span>Goods list:</span><br />
+		<span class = "title"> Products in basket </span> </br>
 		<div class = "sort">
-			<span class = "sortName">name sort</span><span class = "sortPrice"> price sort</span><br/><br/>
+			<span class = "_sort sortName">Name</span>
+			<span class = "_sort sortPrice">Price</span>
+			<span class = "_sort sortQuantity">Quality</span><br/><br/>
 		</div>
 		<ul>
-		
 		</ul>
+		<br />
+		<div class = "total">
+		<span>Items: <span class = "items">0</span> </span> <br />
+		<span>Total price: <span class = "price">0</span>$ </span> <br />
+		</div>
 
 	</div>
-	
+	<div class="both"></div>
+	</div>
 </body>
 </html>

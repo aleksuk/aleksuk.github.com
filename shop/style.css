@@ -41,39 +41,102 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+.header {
+	text-align: center;
+	font-size: 40px;
+	font-family: 'COMIC SANS MS';
+	padding-bottom: 10px;
+	padding-top: 10px;
 
+}
+
+.both {
+	height: 10px;
+	clear: both;
+}
+.container {
+	background: #FFFACD;
+	width: 683px;
+	position: relative;
+	margin: 0 auto;
+}
 .navigation {
 	width: 150px;
 	margin: 10px 0 0 10px;
-	outline: 1px solid red;
 	display: inline-block;
 	float: left;
+	border-right: 1px solid gray;
+}
+.navigation a {
+	text-decoration: none;
+	color: black;
 }
 .navigation ul li {
-	padding-bottom: 2px;
+	padding: 5px 0 2px 2px;
+	border-radius: 5px;
+}
+.navigation ul li:hover {
+	border: 1px solid black;
 }
 .product {
-	width: 150px;
-	margin: 10px 0 0 0;
-	outline: 1px solid blue;
+	padding: 0 5px 0;
+	width: 250px;
+	margin: 10px 0 0 -1px;
 	float: left;
 	display: inline-block;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+}
+
+.basket .name, .product .name {
+	width: 145px;
+	display: inline-block;
+}
+.basket ul .price, .product ul .price {
+	display: inline-block;
+	width: 50px;
+}
+.basket .product, .product .quantity {
+	display: inline-block;
+	width: 50px;
+}
+.basket ul li, .product ul li {
+	padding-top: 3px;
+	cursor: pointer;
+	border-bottom: 1px solid gray;
+	padding-left: 5px;
+
+}
+.basket ul li:hover, .product ul li:hover {
+	background: black;
+	color: white;
 }
 .basket {
+	border-left: 1px solid gray;
+	display: inline-block;
+	width: 250px;
 	float: left;
-	margin: 10px 0 0 0;
-	outline: 1px solid magenta;
+	margin: 10px 0 0 -1px;
+	padding: 0 5px 0;
+}
+.title {
+	display: block;
+	text-align: center;
+	font-family: 'COMIC SANS MS';
 }
 .active {
 	background: Gainsboro;
 }
-.sortName {
-	float: left;
+.sort span {
+	text-align: center;
+	cursor: pointer;
 }
-.sortPrice {
-	float: right;
+.sort .sortName {
+	display: inline-block;
+	width: 130px;
 }
-.basket {
-	width: 150px;
+.sortPrice, .sortQuantity  {
+	display: inline-block;
+	width: 50px;
+}
 
-}
