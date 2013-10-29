@@ -338,7 +338,6 @@ function storeManagement() {
 			this.editInfoInObject(node, isDeduction);
 			if (obj[namePosition]) {
 				for (var i = 0; i < productName.length; i += 1) {
-					console.warn(node.children[0].innerHTML);
 					if (productName.get(i).innerHTML === node.children[0].innerHTML && productName.get(i).getAttribute('id') === node.children[0].getAttribute('id')) {
 						product = productsInBasket.eq(i).children();
 						product.get(1).innerHTML = obj[namePosition]['price'] + '$ ';
