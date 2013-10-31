@@ -45,18 +45,18 @@ table {
 .slider {
 	margin: 40px;
 	width: 210px;
-	height: 12px;
+	height: 15px;
 	background: grey;
 	border-radius: 5px;
 }
 .slider div {
 	cursor: pointer;
 	border-radius:5px;
-	width: 10px;
-	height: 16px;
+	width: 15px;
+	height: 30px;
 	background: red;
 	position: relative;
-	bottom: 2px;
+	bottom: 7px;
 }
 .value {
 	padding-left: 40px;

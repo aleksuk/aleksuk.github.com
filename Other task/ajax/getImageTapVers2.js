@@ -1,6 +1,13 @@
-"use strict";
+/* Задание: 
+	Сделать "бесконечную" ленту на http://www.explosm.net/comics/3305/ из комиксов. 
+	При прокручивании странице ниже, должна подгружатся и вставляться картинка со следующей страницы. 
+	Учтите, что иногда вставляется видео.
+	Решение должно быть самодостаточным (внутри одной анонимной функции)
+*/
+
 window.onerror = null;
 (function() {
+	"use strict";
 	var pageNumber = parseInt(location.href.match(/[^http\:\/\/www\.explosm\.net\/comics\/][\d]*/), 10);
 
 	function getXmlHttp(){

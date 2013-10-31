@@ -1,3 +1,7 @@
+/* Задание: реализовать input (слайдер). Без использования библиотек.
+	Подписку на события слайдера реализовать с помощью совего метода on
+*/
+
 "use strict";
 
 function preventDef(event) {
@@ -69,8 +73,8 @@ var Slider = (function () {
 
 			function moveSlider(event) {
 				event = event || window.event;
-
 				var coords = event.pageX - shift;
+
 				if (coords >= self.nodeCoords.left && coords <= (self.nodeCoords.left + self.SLIDER_WIDTH)) {
 					self.setCoordsSlider(coords - self.nodeCoords.left);
 					self.slideValue.publish(self.getValueSlider());
@@ -89,7 +93,6 @@ var Slider = (function () {
 			}
 
 			addEvent(document, 'mousemove', moveSlider);
-			addEvent(self.node.children[0], 'mouseup', ifMouseUp)
 			addEvent(document, 'mouseup', ifMouseUp);
 		}
 		addEvent(this.node.children[0], 'mousedown', handlerMove);
@@ -149,15 +152,15 @@ var getSliderValues = {
 	}
 }
 
-	function windowLoad() {
-		var sliderNode = document.querySelector('div.slider'),
-			//Длина всего слайдера
-			FULL_SLIDER_WIDTH = 210,
-			//Длина ползунка
-			SMALL_SLIDER_WIDTH = 10;
+function windowLoad() {
+	var sliderNode = document.querySelector('div.slider'),
+		//Длина всего слайдера
+		FULL_SLIDER_WIDTH = 210,
+		//Длина ползунка
+		SMALL_SLIDER_WIDTH = 15;
 
-		var slider = new Slider(sliderNode, FULL_SLIDER_WIDTH, SMALL_SLIDER_WIDTH);
-		slider.on(getSliderValues);
+	var slider = new Slider(sliderNode, FULL_SLIDER_WIDTH, SMALL_SLIDER_WIDTH);
+	slider.on(getSliderValues);
 
-	}
+}
 addEvent(window, 'load', windowLoad);
