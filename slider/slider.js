@@ -1,5 +1,14 @@
 /* Задание: реализовать input (слайдер). Без использования библиотек.
 	Подписку на события слайдера реализовать с помощью совего метода on
+	var slider = new Slider();
+	slider.on({
+ 		slide: function(value) {
+    	// 
+ 		},
+  		change: function(value) {
+    	// 
+  		}
+	})
 */
 
 "use strict";

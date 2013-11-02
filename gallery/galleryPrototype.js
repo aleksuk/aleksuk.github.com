@@ -287,6 +287,7 @@ var Gallery = (function () {
 })();
 
 function windowOnLoad() {
+	// порядковый номер имени большой картинки в массиве, соответсвует порядковому картинки в списке превьюшек
 	var bigPictures = ['pic1.jpg', 'pic2.jpg', 'pic3.jpg', 'pic4.jpg', 'pic5.jpg', 'pic6.jpg'],
 		gallery = new Gallery(document.getElementById('first'), bigPictures),
 		gallery2 = new Gallery(document.getElementById('second'), bigPictures);

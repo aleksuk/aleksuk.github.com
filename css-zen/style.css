@@ -1,6 +1,11 @@
 /* Задание: выбрать на сайте дизайн, http://www.csszengarden.com/ и 
 	реализовать только такой-же с уже заданным HTML (менять нельзя, джаваскрипт использовать нельзя).
-	Попытка повторить дизайн http://www.csszengarden.com/?cssfile=085/085.css */
+	Попытка повторить дизайн http://www.csszengarden.com/?cssfile=085/085.css 
+	
+	P.S. оригинальный дизайн http://www.csszengarden.com/?cssfile=085/085.css не идеален,
+	в каждом браузере line-height разный, так как скриншот для последующей верстки делался в Chrome
+	то этот параметр совпадает с "оригиналом" только в хроме
+*/
 	
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,

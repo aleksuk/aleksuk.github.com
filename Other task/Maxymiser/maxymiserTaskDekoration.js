@@ -1,7 +1,7 @@
 /*	Надо привести страницу вида
 	http://www.paddypower.it/scommesse-calcio
 
-	К виду, как на картинке 
+	К виду, как на картинке https://github.com/aleksuk/aleksuk.github.com/blob/master/Other%20task/Maxymiser/sample/pp.png
 
 	Математика создания надписи:
 	gioca €20 vinci €x
@@ -11,7 +11,9 @@
 	2.10 €20 vinci €42
 	5.90 €20 vinci €118
 
-	P.S. Предполагается что скрипт уже на странице.
+	P.S. Предполагается что скрипт уже на странице. (В противном случае, если его не вставить до
+	загрузки страницы, а просто зпустить из консоли на странице, то отработает не полностью, к примеру не 
+	произойдет редизайн и не удалятся "кнопки" сортировки на откртой вкладке!)
 	Данное поведение эмулировалось с помощью программы fiddler2, для проверки, нужно открыть 
 	вкладку fidlerScript, и в ф-цию onBeforeResponse и добавить следующий код
 	
@@ -19,6 +21,8 @@
 		oSession.utilDecodeResponse();
 		oSession.utilReplaceInResponse('</head>','<script type="text/javascript" src="https://dl.dropboxusercontent.com/s/17oyxsjoucfr6iv/maxymiserTaskDekoration.js?token_hash=AAGkmFkcokVAUTma-3qx_GeyOpfc0Iw1-DO2rGX8zr51ZQ&dl=1"></script></head>');
 	}
+
+	Запускать на странице (или, если с помощью fiddlera подменяется хтмл, открывать страницу) http://www.paddypower.it/scommesse-calcio
 */
 
 (function ($) {

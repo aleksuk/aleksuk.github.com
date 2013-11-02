@@ -5,7 +5,6 @@
 	Решение должно быть самодостаточным (внутри одной анонимной функции)
 */
 
-window.onerror = null;
 (function() {
 	"use strict";
 	var pageNumber = parseInt(location.href.match(/[^http\:\/\/www\.explosm\.net\/comics\/][\d]*/), 10);

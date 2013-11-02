@@ -13,6 +13,7 @@
 
 	P.S. Содержимое страницы прячется, пока не подгрузится содержимое ифреймов, это сделано с целью чтобы
 	пользователь не увидел старый дизайн, предполагается что данный скрипт находится на странице.
+	Скрипт работает как при вставке до библиотеки jQuery, так и после!
 	Данное поведение эмулировалось с помощью программы fiddler2, для проверки, нужно открыть 
 	вкладку fidlerScript, и в ф-цию onBeforeResponse и добавить следующий код
 
@@ -20,7 +21,10 @@
 		oSession.utilDecodeResponse();
 		oSession.utilReplaceInResponse('<head>','<head><script type="text/javascript" src="https://dl.dropboxusercontent.com/s/oldtnq28fzhz41v/iframe.js?token_hash=AAFY1_IuIkWAghkZM4rjgKpQWyPTRByw6NdPPJNo7AWyGg&dl=1"></script>');
 	}
+
+	Запускать из консоли на http://habrahabr.ru/
 */
+
 (function () {
 	"use strict";
 	function addIframe(node, url) {

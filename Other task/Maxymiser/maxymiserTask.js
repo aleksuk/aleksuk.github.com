@@ -1,7 +1,7 @@
 /*	Надо привести страницу вида
 	http://www.paddypower.it/scommesse-calcio
 
-	К виду, как на картинке
+	К виду, как на картинке https://github.com/aleksuk/aleksuk.github.com/blob/master/Other%20task/Maxymiser/sample/pp.png
 
 	Пока делаем только для открытой вкладки (содержимое вкладок подгружается динамически)
 
@@ -12,6 +12,8 @@
 	Примеры:
 	2.10 €20 vinci €42
 	5.90 €20 vinci €118
+
+	Запускать на странице http://www.paddypower.it/scommesse-calcio
 */
 
 // Разметка меняется на всех прогруженых вкладках.
