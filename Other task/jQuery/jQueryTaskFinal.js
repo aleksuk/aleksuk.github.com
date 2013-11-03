@@ -95,7 +95,7 @@ function redesign() {
 
 	function addNumberOfComments() {
 		var $this = $(this),
-			title = $this.find('h1.title'),
+			title = $this.find('h1.title a'),
 			numberOfComments = parseInt($this.find('span.all').get(0).innerHTML, 10) || 0;
 
 		title.text(title.text() + ' (' + numberOfComments + ' comments)');
@@ -124,12 +124,19 @@ function redesign() {
 		return parseInt(pagesHref[pagesHref.length - 1].innerHTML, 10);
 	}
 
+	function removeNavigation(pageNumber, lastPageNumber) {
+		if (pageNumber === lastPageNumber) {
+			$('.page-nav').remove();
+		}
+	}
+
 	function getAllPages(numberOfPages) {
 		var url;
 
 		for (var i = 2; i <= numberOfPages; i += 1) {
 			url = '/page' + i + '/';
 			sendRequest(url, addPosts);
+			removeNavigation(i, numberOfPages);
 		}
 	}
 
