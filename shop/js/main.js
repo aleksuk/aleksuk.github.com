@@ -92,11 +92,11 @@ function storeManagement() {
 		function Cookie() {
 			this.cookieName = 'basketItems';
 			var self = this,
-				defaulCookieValue = {
+				defaultCookieValue = {
 					'TotalPrice': 0,
 					'TotalItems': 0
 				},
-				cookieValue = ($.cookie(this.cookieName)) ? JSON.parse($.cookie(this.cookieName)) : defaulCookieValue;
+				cookieValue = ($.cookie(this.cookieName)) ? JSON.parse($.cookie(this.cookieName)) : defaultCookieValue;
 
 			this.mediator = new Mediator();
 			this.mediator.publish('giveCookieValue', cookieValue);
