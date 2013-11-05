@@ -57,31 +57,10 @@ function redesign() {
 
 	// Все блоки сделать collapsible
 
-	// Все блоки становятся изначально свернутыми 
-	$('.block').each(function () {
-		$(this).children()
-			.addClass('hidden')
-			.css('display', 'none');
-		$(this).children('.title')
-			.css('display', 'block');
-	});
+	$('.block').children(':not(.title)').stop().slideToggle();
 
-	$('.block').each(function () {
-		$(this).on('click', function () {
-			var $this = $(this);
-
-			if ($this.children().hasClass('hidden') ) {
-				$this.children()
-					.removeClass('hidden')
-					.css('display', 'block');
-			} else {
-				$this.children()
-					.addClass('hidden')
-					.css('display', 'none');
-				$this.children('.title')
-					.css('display', 'block');
-			}
-		})
+	$('.block').on('click', function () {
+		$(this).children(':not(.title)').stop().slideToggle();
 	});
 
 	//Удаление рейтинга, описания, флагов.
