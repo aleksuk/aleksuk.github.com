@@ -1,0 +1,7 @@
+{
+  "name": "meds-test-task",
+  "private": true,
+  "dependencies": {
+    "requirejs": "~2.1.18"
+  }
+}
