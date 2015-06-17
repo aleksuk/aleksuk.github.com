@@ -1,3 +1,3 @@
-require(['gallery'], function (help) {
-    console.warn(help());
+require(['fadein'], function (Gallery) {
+    console.warn(Gallery);
 });

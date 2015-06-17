@@ -9,6 +9,10 @@ define('helpers', function () {
         each: function (obj, callback) {
             var key;
 
+            if (obj.forEach) {
+                return obj.forEach(callback);
+            }
+
             for (key in obj) {
                 if (obj.hasOwnProperty(key)) {
                     callback(obj[key], key, obj);
@@ -16,12 +20,24 @@ define('helpers', function () {
             }
         },
 
-        extend: function (Child, Parent) {
-            var proto = Parent.prototype;
+        // extend: function (Child, Parent) {
+        //     var proto = Parent.prototype;
 
-            Child.prototype = Object.create(proto);
-            Child.prototype.constructor = Child;
-            Child.prototype.super = proto;
-        }
+        //     Child.prototype = Object.create(proto);
+        //     Child.prototype.constructor = Child;
+        //     Child.prototype.super = proto;
+        // },
+
+        // extend: function (obj) {
+        //     var args = arguments.slice(1);
+        //     var sourceObj = arguments[0],
+        //         objects = arguments.slice(1);
+
+        //     if (sourceObj) {
+        //         objects.forEach(function() {
+
+        //         })
+        //     }
+        // }
     }
 });
